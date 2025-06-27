@@ -1,5 +1,5 @@
 {
-  "domain": "geosphere-at",
+  "domain": "geosphere-at-warnings",
   "name": "GeoSphere AT Warnings",
   "codeowners": ["@aliebig"],
   "dependencies": [],

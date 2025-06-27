@@ -1,8 +1,8 @@
 import datetime
 from unittest.mock import patch
 
-import geosphere
 import testing_data
+from geosphere_at_warnings import geosphere
 
 
 def test_get_relevant_warnings() -> None:
