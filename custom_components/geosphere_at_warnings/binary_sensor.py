@@ -15,6 +15,7 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
+    BinarySensorEntityDescription,
 )
 from homeassistant.helpers import config_validation
 
@@ -23,7 +24,7 @@ from . import geosphere
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
-    from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
+    from homeassistant.helpers.typing import ConfigType
 
 logger = logging.getLogger(__name__)
 
@@ -44,13 +45,16 @@ PLATFORM_SCHEMA = BINARY_SENSOR_PLATFORM_SCHEMA.extend(
         voluptuous.Required(CONF_ADVANCED_WARNING_TIME_MINUTES): config_validation.positive_int,
     },
 )
+ENTITY_DESCRIPTION = BinarySensorEntityDescription(
+    key="geosphere_at_warnings",
+    icon="mdi:weather-lightning",
+)
 
 
 def setup_platform(
     hass: HomeAssistant,  # noqa: ARG001
     config: ConfigType,
     add_entities: AddEntitiesCallback,
-    discovery_info: DiscoveryInfoType | None = None,  # noqa: ARG001
 ) -> None:
     latitude = config[CONF_LATITUDE]
     longitude = config[CONF_LONGITUDE]
@@ -58,7 +62,7 @@ def setup_platform(
     advanced_warning_time = datetime.timedelta(minutes=config[CONF_ADVANCED_WARNING_TIME_MINUTES])
 
     add_entities(
-        new_entities=[GeosphereAtBinarySensor(name=name, latitude=latitude, longitude=longitude, advanced_warning_time=advanced_warning_time)],
+        new_entities=[GeosphereAtBinarySensor(name=name, latitude=latitude, longitude=longitude, advanced_warning_time=advanced_warning_time, entity_description=ENTITY_DESCRIPTION)],
         update_before_add=True,
     )
 
@@ -67,7 +71,9 @@ class GeosphereAtBinarySensor(BinarySensorEntity):
     _attr_attribution = ATTRIBUTION
     _attr_device_class = BinarySensorDeviceClass.SAFETY
 
-    def __init__(self, name: str, latitude: float, longitude: float, advanced_warning_time: datetime.timedelta) -> None:
+    def __init__(self, name: str, latitude: float, longitude: float, advanced_warning_time: datetime.timedelta, entity_description: BinarySensorEntityDescription) -> None:
+        super().__init__()
+        self.entity_description = entity_description
         self._attr_name = name
         self.location = geosphere.Location(latitude=latitude, longitude=longitude)
         self.advanced_warning_time = advanced_warning_time
