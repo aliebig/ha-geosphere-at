@@ -9,7 +9,6 @@ from typing import TYPE_CHECKING
 
 import homeassistant.const
 import voluptuous
-from geosphere_at_warnings import geosphere
 from homeassistant.components.binary_sensor import (
     PLATFORM_SCHEMA as BINARY_SENSOR_PLATFORM_SCHEMA,
 )
@@ -18,6 +17,8 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
 )
 from homeassistant.helpers import config_validation
+
+from . import geosphere
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
