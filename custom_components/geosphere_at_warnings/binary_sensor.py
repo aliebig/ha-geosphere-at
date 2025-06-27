@@ -31,7 +31,7 @@ ATTRIBUTION = "Data by Geosphere Austria"
 
 CONF_LATITUDE = "latitude"
 CONF_LONGITUDE = "longitude"
-CONF_ADVANCED_WARNING_TIME = "advanced_warning_time"
+CONF_ADVANCED_WARNING_TIME_MINUTES = "advanced_warning_time_minutes"
 
 DEFAULT_NAME = "geosphere-at"
 
@@ -41,7 +41,7 @@ PLATFORM_SCHEMA = BINARY_SENSOR_PLATFORM_SCHEMA.extend(
     {
         voluptuous.Required(CONF_LATITUDE): config_validation.latitude,
         voluptuous.Required(CONF_LONGITUDE): config_validation.longitude,
-        voluptuous.Required(CONF_ADVANCED_WARNING_TIME): config_validation.timedelta,
+        voluptuous.Required(CONF_ADVANCED_WARNING_TIME_MINUTES): config_validation.positive_int,
     },
 )
 
@@ -55,7 +55,7 @@ def setup_platform(
     latitude = config[CONF_LATITUDE]
     longitude = config[CONF_LONGITUDE]
     name = config[homeassistant.const.CONF_NAME]
-    advanced_warning_time = config[CONF_ADVANCED_WARNING_TIME]
+    advanced_warning_time = datetime.timedelta(minutes=config[CONF_ADVANCED_WARNING_TIME_MINUTES])
 
     add_entities(
         new_entities=[GeosphereAtBinarySensor(name=name, latitude=latitude, longitude=longitude, advanced_warning_time=advanced_warning_time)],
