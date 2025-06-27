@@ -1,10 +1,11 @@
 {
-  "domain": "geosphere-at-warnings",
+  "domain": "geosphere_at_warnings",
   "name": "GeoSphere AT Warnings",
   "codeowners": ["@aliebig"],
   "dependencies": [],
   "documentation": "https://www.example.com",
   "integration_type": "device",
   "iot_class": "cloud_polling",
-  "requirements": ["requests"]
+  "requirements": ["requests"],
+  "version": "0.1.0"
 }
