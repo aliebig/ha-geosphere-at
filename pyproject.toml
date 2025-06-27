@@ -1,0 +1,50 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=2.0.1"]
+
+
+[tool.ruff]
+target-version = "py313"
+line-length = 1000
+
+[tool.ruff.lint]
+select = ["ALL", "E"]
+preview = true
+ignore = [
+    "D", # doctype
+    "CPY001", # Missing copyright notice at top of file
+    "N999", # Invalid module name: 'custom-components'
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "INP001", # No __init__.py for tests
+    "SLF001", # Private member access
+    "S101", # asserts allowed in tests...
+    "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "PLR2004", #Magic Number in comparison
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 5000
+max-line-length = 5000
+
+[tool.poetry]
+authors = ["Andreas Liebig <andreas@aliebig.at>"]
+description = "HomeAssistant Geosphere AT Integration"
+name = "ha-geosphere-at"
+version = "0.1.0"
+license = "MIT"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.13.2,<3.14"
+requests = "2.32.4"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "8.4.1"
+ruff = "0.12.1"
+homeassistant = "^2025.6.3"
+
