@@ -7,9 +7,9 @@ import logging
 from datetime import timedelta
 from typing import TYPE_CHECKING
 
-import geosphere
 import homeassistant.const
 import voluptuous
+from geosphere_at_warnings import geosphere
 from homeassistant.components.binary_sensor import (
     PLATFORM_SCHEMA as BINARY_SENSOR_PLATFORM_SCHEMA,
 )
