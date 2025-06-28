@@ -2,6 +2,7 @@
   "domain": "geosphere_at_warnings",
   "name": "GeoSphere AT Warnings",
   "codeowners": ["@aliebig"],
+  "config_flow": true,
   "dependencies": [],
   "documentation": "https://www.example.com",
   "iot_class": "cloud_polling",
